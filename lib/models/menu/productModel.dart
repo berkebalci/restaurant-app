@@ -1,4 +1,4 @@
-class MenuItem {
+class productModel {
   int id;
   String name;
   String localName;
@@ -36,7 +36,7 @@ class MenuItem {
   bool? vegan;
   bool? hot;
 
-  MenuItem({
+  productModel({
     required this.id,
     required this.name,
     required this.localName,
@@ -75,8 +75,8 @@ class MenuItem {
     this.hot,
   });
 
-  factory MenuItem.fromJson(Map<String, dynamic> json) {
-    return MenuItem(
+  factory productModel.fromJson(Map<String, dynamic> json) {
+    return productModel(
       id: json['ID'] as int,
       name: json['NAME'] as String,
       localName: json['LOCALNAME'] as String,
