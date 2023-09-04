@@ -9,15 +9,13 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
-      themeMode: ThemeMode.system
-      ,theme: ThemeData(
-        scaffoldBackgroundColor: Color(Colors.black87.value),
+      darkTheme: ThemeData.dark(),
+      theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.black),
         useMaterial3: true,
       ),
@@ -25,4 +23,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-

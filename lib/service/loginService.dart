@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 
 
-import '../models/loginResponse.dart';
+import '../models/login/loginResponse.dart';
 
 class LoginService {
   static Future<Response> requestLogin(
