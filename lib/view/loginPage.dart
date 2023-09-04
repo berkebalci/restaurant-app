@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:elektraweb_restaurant/extensions/context_extension.dart';
+import 'package:elektraweb_restaurant/view/menuPage.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -115,18 +116,19 @@ class _LoginPageState extends State<LoginPage> {
               authCode: AuthCode)
           .then(
         (value) {
-          print(value);
+          print(" Value is $value");
           Map<String, dynamic> decodedJson = jsonDecode(value.body);
           if (decodedJson["Success"] == true &&
               decodedJson["LoginToken"] != null) {
             loginObject$.value = LoginService.castmodelClassobject(decodedJson);
             print(loginObject$.value);
             print("başarili");
-            /*Navigator.push(
+            Navigator.push(
                 context,
                 MaterialPageRoute(
                     builder: (context) =>
-                        CardPage()));*/
+                        MenuPage()));
+                        
           } else {
             print("Olumsuz");
             switch (decodedJson["Code"]) {

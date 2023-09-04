@@ -1,5 +1,8 @@
 import 'package:elektraweb_restaurant/Global/global.dart';
+import 'package:elektraweb_restaurant/extensions/context_extension.dart';
+import 'package:elektraweb_restaurant/service/menu_service.dart';
 import 'package:flutter/material.dart';
+import 'package:rxdart/rxdart.dart';
 
 class MenuPage extends StatefulWidget {
   const MenuPage({super.key});
@@ -9,6 +12,9 @@ class MenuPage extends StatefulWidget {
 }
 
 class _MenuPageState extends State<MenuPage> {
+  BehaviorSubject<int> selectedIndex$ =
+      BehaviorSubject.seeded(0); //bottomnavBar için index
+  final service = menuService(); //servis objemiz
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,16 +23,16 @@ class _MenuPageState extends State<MenuPage> {
           builder: (context, snapshot) {
             return NavigationBar(
               destinations: [
-                NavigationDestination(
+                const NavigationDestination(
                     icon: Icon(Icons.home_filled), label: "Home"),
-                NavigationDestination(
+                const NavigationDestination(
                   icon: Icon(Icons.bookmark_border_sharp),
                   label: "Saved",
                 ),
                 /*NavigationDestination(icon: Icon(Icons.add,size: 30),)*/ //Sipariş ekleme özelliği için
-                NavigationDestination(
+                const NavigationDestination(
                     icon: Icon(Icons.notifications), label: "Bildirimler"),
-                NavigationDestination(
+                const NavigationDestination(
                     icon: Icon(Icons.settings), label: "Ayarlar")
               ],
               selectedIndex: selectedIndex$.value,
@@ -43,13 +49,40 @@ class _MenuPageState extends State<MenuPage> {
         ),
         centerTitle: true,
       ),
-      body: SafeArea(
-          child: SingleChildScrollView(
-        child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: []),
-      )),
+      body: Container(
+          
+          child: FutureBuilder(
+            future: service.getRestaurantList(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                final 
+                List menuList = snapshot.data[2]; //Bütün yemeklerin olduğu liste
+                //TODO: yukarıdaki listeyi sil
+                return GridView.builder(
+                  
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2),
+                  itemCount: menuList.length
+                  ,itemBuilder: (context, index) {
+                    return Stack(
+                      children: [
+                        Container(
+                          
+                        ), 
+                        Text("${menuList[index]["NAME"]}")],
+                    );
+                  },
+                );
+              } 
+              else if (snapshot.hasError) {
+                return Center(child: Text("Something went wrong"),);
+              } 
+              else {
+                return Center(child: CircularProgressIndicator());
+              }
+            },
+          ),
+        ),
     );
   }
 }
