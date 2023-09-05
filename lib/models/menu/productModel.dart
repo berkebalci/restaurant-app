@@ -1,4 +1,6 @@
-class productModel {
+import 'package:elektraweb_restaurant/models/menu/productGroupModel.dart';
+
+class ProductModel {
   int id;
   String name;
   String localName;
@@ -9,34 +11,16 @@ class productModel {
   String imageUrl;
   bool halfPortion;
   bool includedInAI;
-  
-  bool isPackage;
-  String displayInfo;
-  String localDisplayInfo;
-  bool allergic;
-  bool vegetarian;
-  bool alcohol;
-  bool pork;
-  bool gluten;
-  int preparationTime;
-  String allergens;
-  double calories;
-  double? cholesterol;
-  double? sodium;
-  double carbohydrates;
-  double protein;
-  double fat;
-  double? fiber;
-  String? displayPrice;
-  String? period1Start;
-  String? period1End;
-  String? period2Start;
-  String? period2End;
-  bool? bestSeller;
-  bool? vegan;
-  bool? hot;
 
-  productModel({
+  bool isPackage;
+  String? displayInfo;
+  String? localDisplayInfo;
+  bool? allergic;
+  bool? vegetarian;
+  bool? alcohol;
+  bool? pork;
+
+  ProductModel({
     required this.id,
     required this.name,
     required this.localName,
@@ -54,29 +38,10 @@ class productModel {
     required this.vegetarian,
     required this.alcohol,
     required this.pork,
-    required this.gluten,
-    required this.preparationTime,
-    required this.allergens,
-    required this.calories,
-    this.cholesterol,
-    this.sodium,
-    required this.carbohydrates,
-    required this.protein,
-    required this.fat,
-    this.fiber,
-    this.displayPrice,
-    this.period1Start,
-    this.period1End,
-    this.period2Start,
-    this.period2End,
-    
-    this.bestSeller,
-    this.vegan,
-    this.hot,
   });
 
-  factory productModel.fromJson(Map<String, dynamic> json) {
-    return productModel(
+  factory ProductModel.fromJson(Map<String, dynamic> json) {
+    return ProductModel(
       id: json['ID'] as int,
       name: json['NAME'] as String,
       localName: json['LOCALNAME'] as String,
@@ -88,30 +53,12 @@ class productModel {
       halfPortion: json['HALFPORTION'] as bool,
       includedInAI: json['INCLUDEDIN_AI'] as bool,
       isPackage: json['ISPACKAGE'] as bool,
-      displayInfo: json['DISPLAYINFO'] as String,
-      localDisplayInfo: json['LOCALDISPLAYINFO'] as String,
-      allergic: json['ALLERGIC'] as bool,
-      vegetarian: json['VEGETARIAN'] as bool,
-      alcohol: json['ALCOHOL'] as bool,
-      pork: json['PORK'] as bool,
-      gluten: json['GLUTEN'] as bool,
-      preparationTime: json['PREPERATIONTIME'] as int,
-      allergens: json['ALLERGENS'] as String,
-      calories: double.parse(json['CALORIES'] as String),
-      cholesterol: json['CHOLESTEROL'] != null ? double.parse(json['CHOLESTEROL'] as String) : null,
-      sodium: json['SODIUM'] != null ? double.parse(json['SODIUM'] as String) : null,
-      carbohydrates: double.parse(json['CARBONHYDRATES'] as String),
-      protein: double.parse(json['PROTEIN'] as String),
-      fat: double.parse(json['FAT'] as String),
-      fiber: json['FIBER'] != null ? double.parse(json['FIBER'] as String) : null,
-      displayPrice: json['DISPLAYPRICE'] as String?,
-      period1Start: json['PERIOD1_START'] as String?,
-      period1End: json['PERIOD1_END'] as String?,
-      period2Start: json['PERIOD2_START'] as String?,
-      period2End: json['PERIOD2_END'] as String?,
-      bestSeller: json['BESTSELLER'] as bool?,
-      vegan: json['VEGAN'] as bool?,
-      hot: json['HOT'] as bool?,
+      displayInfo: json['DISPLAYINFO'] as String?,
+      localDisplayInfo: json['LOCALDISPLAYINFO'] as String?,
+      allergic: json['ALLERGIC'] as bool?,
+      vegetarian: json['VEGETARIAN'] as bool?,
+      alcohol: json['ALCOHOL'] as bool?,
+      pork: json['PORK'] as bool?,
     );
   }
 }
