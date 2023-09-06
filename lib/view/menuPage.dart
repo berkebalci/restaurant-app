@@ -61,8 +61,7 @@ class _MenuPageState extends State<MenuPage> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              Row(children: [Text("dfs")]),
-              FutureBuilder(
+            FutureBuilder(
                 future: service.getRestaurantList(),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
@@ -76,16 +75,22 @@ class _MenuPageState extends State<MenuPage> {
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics()
                       ,gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2),
+                      crossAxisCount: 2),
                       itemCount: menuList.length,
                       itemBuilder: (context, index) {
-                        return Stack(
-                          children: [
-                            Container(
-                              color: Colors.red,
-                            ),
-                            Text("${menuList[index]["NAME"]}"),
-                          ],
+                        return Padding(
+                          padding: const EdgeInsets.all(9.0),
+                          child: Stack(
+                            children: [
+                              Container(
+                                color: Colors.red,
+                                decoration: BoxDecoration(
+                                  
+                                ),
+                              ),
+                              Text("${menuList[index]["NAME"]}"),
+                            ],
+                          ),
                         );
                       },
                     );
