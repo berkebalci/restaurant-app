@@ -1,31 +1,29 @@
-class productGroupModel {
+import 'package:elektraweb_restaurant/models/menu/DepartmantModel.dart';
+import 'package:elektraweb_restaurant/models/menu/productModel.dart';
+
+class ProductGroupModel {
   int id;
   String name;
   String localName;
   String imageUrl;
-  int displayOrder;
-  String? menuDesign;
   int? parentGroupId;
+  List<ProductModel> productmodelList;
 
-  productGroupModel({
-    required this.id,
-    required this.name,
-    required this.localName,
-    required this.imageUrl,
-    required this.displayOrder,
-    this.menuDesign,
-    this.parentGroupId,
-  });
+  ProductGroupModel(
+      {required this.id,
+      required this.name,
+      required this.localName,
+      required this.imageUrl,
+      this.parentGroupId,
+      required this.productmodelList}); //TODO: Burasi nasıl yapilacak düşün!
 
-  factory productGroupModel.fromJson(Map<String, dynamic> json) {
-    return productGroupModel(
-      id: json['ID'] as int,
-      name: json['NAME'] as String,
-      localName: json['LOCALNAME'] as String,
-      imageUrl: json['IMAGEURL'] as String,
-      displayOrder: json['DISPLAYORDER'] as int,
-      menuDesign: json['MENUDESIGN'] as String?,
-      parentGroupId: json['PARENTGROUPID'] as int?,
-    );
+  factory ProductGroupModel.fromJson(Map<String, dynamic> json) {
+    return ProductGroupModel(
+        id: json['ID'] as int,
+        name: json['NAME'] as String,
+        localName: json['LOCALNAME'] as String,
+        imageUrl: json['IMAGEURL'] as String,
+        parentGroupId: json['PARENTGROUPID'] as int?,
+        productmodelList: []);
   }
 }

@@ -17,72 +17,96 @@ class _MenuPageState extends State<MenuPage> {
   final service = menuService(); //servis objemiz
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      bottomNavigationBar: StreamBuilder<int>(
-          stream: selectedIndex$.stream,
-          builder: (context, snapshot) {
-            return NavigationBar(
-              destinations: [
-                const NavigationDestination(
-                    icon: Icon(Icons.home_filled), label: "Home"),
-                const NavigationDestination(
-                  icon: Icon(Icons.bookmark_border_sharp),
-                  label: "Saved",
-                ),
-                /*NavigationDestination(icon: Icon(Icons.add,size: 30),)*/ //Sipariş ekleme özelliği için
-                const NavigationDestination(
-                    icon: Icon(Icons.notifications), label: "Bildirimler"),
-                const NavigationDestination(
-                    icon: Icon(Icons.settings), label: "Ayarlar")
-              ],
-              selectedIndex: selectedIndex$.value,
-              onDestinationSelected: (value) {
-                selectedIndex$.value =
-                    value; //Global BehaviorSubject objesinin değerini değiştiriyoruz.
-              },
-            );
-          }),
-      appBar: AppBar(
-        title: Text(
-          "Welcome",
-          style: TextStyle(fontFamily: "proxima"),
+    return DefaultTabController(
+      length: 3,
+      child: Scaffold(
+        appBar: AppBar(
+          bottom: TabBar(
+            tabs: [
+              Text("data"),
+              Text("dfsfsfsf"),
+              Text("fsfs")
+            ]),
+          title: Text(
+            "Welcome",
+            style: TextStyle(fontFamily: "proxima"),
+          ),
+          centerTitle: true,
         ),
-        centerTitle: true,
-      ),
-      body: Container(
-          
-          child: FutureBuilder(
-            future: service.getRestaurantList(),
+        bottomNavigationBar: StreamBuilder<int>(
+            stream: selectedIndex$.stream,
             builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                final 
-                List menuList = snapshot.data[2]; //Bütün yemeklerin olduğu liste
-                //TODO: yukarıdaki listeyi sil
-                return GridView.builder(
-                  
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              return NavigationBar(
+                destinations: [
+                  const NavigationDestination(
+                      icon: Icon(Icons.home_filled), label: "Home"),
+                  const NavigationDestination(
+                    icon: Icon(Icons.bookmark_border_sharp),
+                    label: "Saved",
+                  ),
+                  /*NavigationDestination(icon: Icon(Icons.add,size: 30),)*/ //Sipariş ekleme özelliği için
+                  const NavigationDestination(
+                      icon: Icon(Icons.notifications), label: "Bildirimler"),
+                  const NavigationDestination(
+                      icon: Icon(Icons.settings), label: "Ayarlar")
+                ],
+                selectedIndex: selectedIndex$.value,
+                onDestinationSelected: (value) {
+                  selectedIndex$.value =
+                      value; //Global BehaviorSubject objesinin değerini değiştiriyoruz.
+                },
+              );
+            }),
+        
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+            FutureBuilder(
+                future: service.getRestaurantList(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    service.handlerestaurantObject(snapshot
+                        .data); //BehaviorSubject objesinin değerini değiştiriyoruz.
+            
+                    List menuList =
+                        snapshot.data[2]; //Bütün yemeklerin olduğu liste
+                    //TODO: yukarıdaki listeyi sil
+                    return GridView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics()
+                      ,gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2),
-                  itemCount: menuList.length
-                  ,itemBuilder: (context, index) {
-                    return Stack(
-                      children: [
-                        Container(
-                          
-                        ), 
-                        Text("${menuList[index]["NAME"]}")],
+                      itemCount: menuList.length,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.all(9.0),
+                          child: Stack(
+                            children: [
+                              Container(
+                                color: Colors.red,
+                                decoration: BoxDecoration(
+                                  
+                                ),
+                              ),
+                              Text("${menuList[index]["NAME"]}"),
+                            ],
+                          ),
+                        );
+                      },
                     );
-                  },
-                );
-              } 
-              else if (snapshot.hasError) {
-                return Center(child: Text("Something went wrong"),);
-              } 
-              else {
-                return Center(child: CircularProgressIndicator());
-              }
-            },
+                  } else if (snapshot.hasError) {
+                    return Center(
+                      child: Text("Something went wrong"),
+                    );
+                  } else {
+                    return Center(child: CircularProgressIndicator());
+                  }
+                },
+              ),
+            ],
           ),
         ),
+      ),
     );
   }
 }
