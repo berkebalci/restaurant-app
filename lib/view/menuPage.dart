@@ -27,7 +27,7 @@ class _MenuPageState extends State<MenuPage> with TickerProviderStateMixin {
         if (snapshot.hasData) {
           service.handledepartmentObject(snapshot.data);
 
-          return DefaultTabController(
+          return  DefaultTabController(
             length:
                 mainDepartmantmodelList$.value[0].productgroupmodelList.length,
             child: Scaffold(
@@ -82,16 +82,39 @@ class _MenuPageState extends State<MenuPage> with TickerProviderStateMixin {
                                   padding: const EdgeInsets.all(9.0),
                                   child: Stack(
                                     children: [
-                                      Container(
-                                        decoration: BoxDecoration(
-                                            color: Colors.red,
-                                            borderRadius:
-                                                BorderRadius.circular(30)),
+                                      GestureDetector(
+                                        onTap: () {
+                                          /*showDialog(
+                                            context: context,
+                                            builder: (context) {
+                                              Navigator.push(context, 
+                                              MaterialPageRoute(builder: (context) {
+                                                return 
+                                              },));
+                                            },
+                                          );*/
+                                        },
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                   fit: BoxFit.cover,
+                                                  image: NetworkImage(
+                                                      "${selectedproductList$.value[index].imageUrl}")),
+                                              color: Colors.grey,
+                                              borderRadius:
+                                                  BorderRadius.circular(30)),
+                                        ),
                                       ),
                                       Padding(
                                         padding: const EdgeInsets.all(8.0),
-                                        child: Text(
-                                            "${snapshot.data![index].name}"), //TODO: Yapilacak.
+                                        child: Align(
+                                          alignment: Alignment.bottomCenter,
+                                          child: Text(
+                                            "${snapshot.data![index].name}",
+                                            style: TextStyle(
+                                                fontFamily: "proxima"),
+                                          ),
+                                        ), //TODO: Yapilacak.
                                       ),
                                     ],
                                   ),
