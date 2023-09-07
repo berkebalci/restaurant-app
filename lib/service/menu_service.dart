@@ -44,7 +44,7 @@ class menuService {
     }
   }
 
-  void handlerestaurantObject(List decodedBody) {
+  void handledepartmentObject(List decodedBody) {
     //print("Konntrol ;))))) ${decodedBody[0][0]["DEPARTMENTNAME"]}"); //Restaurant dönüyor
     //Eğer map'de öyle bir şey yok ise null döndürüyor.
     print("Gelen cevap's length is : ${decodedBody.length}");
@@ -67,8 +67,7 @@ class menuService {
     for (var department in departments) {
       index = 0;
 
-      department.productgroupmodelList.addAll(
-        productGroup
+      department.productgroupmodelList.addAll(productGroup
 
           /* productGroup.where((element) {
         if (index < productGroup.length) {
@@ -100,10 +99,9 @@ class menuService {
     mainDepartmantmodelList$.value =
         departments; //BehaviorSubject objesine değer atadığımız yer.
     print(mainDepartmantmodelList$.value.runtimeType);
+  
   }
 
-  
-  
   List getproductList(
     String productgroupName,
   ) {
@@ -119,7 +117,7 @@ class menuService {
     ).toList();
     print(
         "Selected Datas: $selectedDatas ,,,,,,,,, runtimetype: ${selectedDatas.runtimeType}");
-    
+
     return selectedDatas[0].productmodelList;
-    }
+  }
 }
