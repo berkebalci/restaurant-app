@@ -7,5 +7,4 @@ BehaviorSubject<LoginResponse> loginObject$ = BehaviorSubject();
 BehaviorSubject<bool> passwordVisibility$ =
     BehaviorSubject(); //Values in LoginPage
 BehaviorSubject<String> AuthCode$ = BehaviorSubject<String>();
-
-BehaviorSubject mainDepartmantmodelList$ = BehaviorSubject();
+BehaviorSubject<List<DepartmantModel>> mainDepartmantmodelList$ = BehaviorSubject();

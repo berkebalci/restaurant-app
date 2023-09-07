@@ -148,7 +148,7 @@ class _LoginPageState extends State<LoginPage> {
                     "Your IP seems suspicious. Please contact with supervisor");
             }
 
-            //TODO: Gereksiz textfield var.
+           
           }
         },
       );
@@ -194,7 +194,7 @@ class _LoginPageState extends State<LoginPage> {
                 onPressed: isTextFieldVisible
                     ? () async {
                         print(
-                            "Alert dialog butona basildi"); //TODO: Burasi yapilacak.
+                            "Alert dialog butona basildi"); 
                         AuthCode$.value = controller.text;
                         Navigator.of(context).pop();
                         print("Sj");
