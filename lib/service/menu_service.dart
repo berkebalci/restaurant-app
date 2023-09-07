@@ -31,7 +31,9 @@ class menuService {
       print("response.body: ${response.body}"); //Dönen verinin body'si
 
       if (response.statusCode == 200) {
-        final decodedList = jsonDecode(response.body); //List<dynamic> tipinde
+        final decodedList = jsonDecode(utf8.decode(response.bodyBytes));
+        //Bununla birlikte türkçe karakterler de bozulmadan gelebiecek
+
         return decodedList;
       } else {
         throw Exception();
@@ -62,18 +64,18 @@ class menuService {
     List<ProductModel> products =
         (decodedBody[2] as List).map((e) => ProductModel.fromJson(e)).toList();
 
-    for (var x in departments) {
+    for (var department in departments) {
       index = 0;
 
-      x.productgroupmodelList.addAll(
-       productGroup
-       
-       /* productGroup.where((element) {
+      department.productgroupmodelList.addAll(
+        productGroup
+
+          /* productGroup.where((element) {
         if (index < productGroup.length) {
           if (element.id != previousid && index != productGroup.length - 1) {
             previousid = element.id;
             index++;
-            return true; //TODO: Burasi yapilacak.
+            return true; //TODO: Daha farklı durumlar için 
           } 
           else if (element.id != previousid && index == productGroup.length - 1) {
             return true;
@@ -85,7 +87,8 @@ class menuService {
         else {
           return false;
         }
-      })*/); //TODO: Sorun buradan kaynaklanıyor.
+      })*/
+          );
     }
 
     for (var x in productGroup) {
@@ -96,7 +99,27 @@ class menuService {
 
     mainDepartmantmodelList$.value =
         departments; //BehaviorSubject objesine değer atadığımız yer.
+    print(mainDepartmantmodelList$.value.runtimeType);
   }
 
-  handlemodelClassList() {}
+  
+  
+  List getproductList(
+    String productgroupName,
+  ) {
+    var selectedDatas =
+        mainDepartmantmodelList$.value[0].productgroupmodelList.where(
+      (element) {
+        if (element.name == productgroupName) {
+          return true;
+        } else {
+          return false;
+        }
+      },
+    ).toList();
+    print(
+        "Selected Datas: $selectedDatas ,,,,,,,,, runtimetype: ${selectedDatas.runtimeType}");
+    
+    return selectedDatas[0].productmodelList;
+    }
 }
