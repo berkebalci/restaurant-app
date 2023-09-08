@@ -114,7 +114,15 @@ class _MenuPageState extends State<MenuPage> with TickerProviderStateMixin {
                                           child: Text(
                                             "${snapshot.data![index].name}",
                                             style: TextStyle(
-                                                fontFamily: "proxima"),
+                                                color: Colors.white
+                                                ,fontFamily: "proxima",
+                                                shadows:<Shadow>[
+                                                        Shadow(
+                                                          offset: Offset(2.0, 2.0),
+                                                          blurRadius: 3.0,
+                                                          color: Color.fromARGB(255, 0, 0, 0),
+                                                        ),
+                                                      ], ),
                                           ),
                                         ), //TODO: Yapilacak.
                                       ),
