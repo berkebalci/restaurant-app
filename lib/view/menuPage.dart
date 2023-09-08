@@ -2,6 +2,7 @@ import 'package:elektraweb_restaurant/Global/global.dart';
 import 'package:elektraweb_restaurant/extensions/context_extension.dart';
 import 'package:elektraweb_restaurant/models/menu/productModel.dart';
 import 'package:elektraweb_restaurant/service/menu_service.dart';
+import 'package:elektraweb_restaurant/view/productdetailPage.dart';
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -27,7 +28,7 @@ class _MenuPageState extends State<MenuPage> with TickerProviderStateMixin {
         if (snapshot.hasData) {
           service.handledepartmentObject(snapshot.data);
 
-          return  DefaultTabController(
+          return DefaultTabController(
             length:
                 mainDepartmantmodelList$.value[0].productgroupmodelList.length,
             child: Scaffold(
@@ -51,7 +52,7 @@ class _MenuPageState extends State<MenuPage> with TickerProviderStateMixin {
                         ),
                       );
                     }).toList()),
-                title: Text(
+                title: const Text(
                   "Welcome",
                   style: TextStyle(fontFamily: "proxima"),
                 ),
@@ -74,7 +75,7 @@ class _MenuPageState extends State<MenuPage> with TickerProviderStateMixin {
                               shrinkWrap: true,
                               physics: const NeverScrollableScrollPhysics(),
                               gridDelegate:
-                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
                                       crossAxisCount: 2),
                               itemCount: snapshot.data!.length,
                               itemBuilder: (context, index) {
@@ -82,28 +83,52 @@ class _MenuPageState extends State<MenuPage> with TickerProviderStateMixin {
                                   padding: const EdgeInsets.all(9.0),
                                   child: Stack(
                                     children: [
+                                      Container(
+                                        decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                              fit: BoxFit.cover,
+                                              image: NetworkImage(
+                                                  "${selectedproductList$.value[index].imageUrl}"),
+                                            ),
+                                            color: Colors.grey,
+                                            borderRadius:
+                                                BorderRadius.circular(30)),
+                                      ),
                                       GestureDetector(
                                         onTap: () {
-                                          /*showDialog(
-                                            context: context,
+                                          print("Butona basildi");
+                                          Navigator.push(context,
+                                              MaterialPageRoute(
                                             builder: (context) {
-                                              Navigator.push(context, 
-                                              MaterialPageRoute(builder: (context) {
-                                                return 
-                                              },));
+                                              return productdetailPage(
+                                                ImageURL:
+                                                    "${selectedproductList$.value[index].imageUrl}",
+                                              );
                                             },
-                                          );*/
+                                          ));
                                         },
                                         child: Container(
-                                          decoration: BoxDecoration(
-                                              image: DecorationImage(
-                                                   fit: BoxFit.cover,
-                                                  image: NetworkImage(
-                                                      "${selectedproductList$.value[index].imageUrl}")),
-                                              color: Colors.grey,
-                                              borderRadius:
-                                                  BorderRadius.circular(30)),
-                                        ),
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(30),
+                                                color: Colors.white,
+                                                gradient: LinearGradient(
+                                                    begin: FractionalOffset
+                                                        .topCenter,
+                                                    end: FractionalOffset
+                                                        .bottomCenter,
+                                                    colors: [
+                                                      Colors.transparent
+                                                          .withOpacity(0),
+                                                      Colors.transparent
+                                                          .withOpacity(0),
+                                                      Colors.black,
+                                                    ],
+                                                    stops: [
+                                                      0.0,
+                                                      0.6,
+                                                      1.0
+                                                    ]))),
                                       ),
                                       Padding(
                                         padding: const EdgeInsets.all(8.0),
@@ -112,7 +137,16 @@ class _MenuPageState extends State<MenuPage> with TickerProviderStateMixin {
                                           child: Text(
                                             "${snapshot.data![index].name}",
                                             style: TextStyle(
-                                                fontFamily: "proxima"),
+                                              color: Colors.white,
+                                              fontFamily: "proxima",
+                                              /*shadows:<Shadow>[
+                                                        const Shadow(
+                                                          offset: Offset(2.0, 2.0),
+                                                          blurRadius: 3.0,
+                                                          color: Color.fromARGB(255, 0, 0, 0),
+                                                        ),
+                                                      ],*/
+                                            ),
                                           ),
                                         ), //TODO: Yapilacak.
                                       ),
