@@ -33,6 +33,7 @@ class _MenuPageState extends State<MenuPage> with TickerProviderStateMixin {
                 mainDepartmantmodelList$.value[0].productgroupmodelList.length,
             child: Scaffold(
               appBar: AppBar(
+                backgroundColor: Colors.transparent,
                 bottom: TabBar(
                     onTap: (index) {
                       selectedproductList$.value = mainDepartmantmodelList$
@@ -62,6 +63,7 @@ class _MenuPageState extends State<MenuPage> with TickerProviderStateMixin {
               body: SingleChildScrollView(
                 child: Column(
                   children: [
+                    SizedBox(height: context.getdynamicHeight(0.02),),
                     StreamBuilder<List>(
                         stream: selectedproductList$.stream,
                         initialData: selectedproductList$.value =
@@ -148,7 +150,7 @@ class _MenuPageState extends State<MenuPage> with TickerProviderStateMixin {
                                                       ],*/
                                             ),
                                           ),
-                                        ), //TODO: Yapilacak.
+                                        ), 
                                       ),
                                     ],
                                   ),
