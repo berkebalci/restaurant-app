@@ -1,9 +1,8 @@
-import 'package:elektraweb_restaurant/models/menu/productGroupModel.dart';
 
 class ProductModel {
   int id;
   String name;
-  String localName;
+  String localName; //Aynı
   double price;
   String curCode;
   String? preparePlace;
@@ -11,10 +10,9 @@ class ProductModel {
   String imageUrl;
   bool halfPortion;
   bool includedInAI;
-
   bool isPackage;
   String? displayInfo;
-  String? localDisplayInfo;
+  String? localDisplayInfo; //Aynı
   bool? allergic;
   bool? vegetarian;
   bool? alcohol;

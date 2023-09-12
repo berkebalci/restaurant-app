@@ -104,12 +104,13 @@ class _MenuPageState extends State<MenuPage> with TickerProviderStateMixin {
                                             builder: (context) {
                                               return productdetailPage(
                                                 ImageURL:
-                                                    "${selectedproductList$.value[index].imageUrl}",
+                                                  "${selectedproductList$.value[index].imageUrl}",
+                                                displayInfo:selectedproductList$.value[index].localDisplayInfo ,
                                               );
                                             },
                                           ));
                                         },
-                                        child: Container(
+                                        child:  Container(
                                             decoration: BoxDecoration(
                                                 borderRadius:
                                                     BorderRadius.circular(30),
@@ -141,13 +142,6 @@ class _MenuPageState extends State<MenuPage> with TickerProviderStateMixin {
                                             style: TextStyle(
                                               color: Colors.white,
                                               fontFamily: "proxima",
-                                              /*shadows:<Shadow>[
-                                                        const Shadow(
-                                                          offset: Offset(2.0, 2.0),
-                                                          blurRadius: 3.0,
-                                                          color: Color.fromARGB(255, 0, 0, 0),
-                                                        ),
-                                                      ],*/
                                             ),
                                           ),
                                         ), 
@@ -158,7 +152,7 @@ class _MenuPageState extends State<MenuPage> with TickerProviderStateMixin {
                               },
                             );
                           } else {
-                            return CircularProgressIndicator();
+                            return const CircularProgressIndicator();
                           }
                         }),
                   ],
@@ -167,11 +161,11 @@ class _MenuPageState extends State<MenuPage> with TickerProviderStateMixin {
             ),
           );
         } else if (snapshot.hasError) {
-          return Center(
+          return const Center(
             child: Text("Something went wrong"),
           );
         } else {
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         }
       },
     );
