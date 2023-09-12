@@ -103,10 +103,35 @@ class _MenuPageState extends State<MenuPage> with TickerProviderStateMixin {
                                               MaterialPageRoute(
                                             builder: (context) {
                                               return productdetailPage(
-                                                ImageURL:
-                                                  "${selectedproductList$.value[index].imageUrl}",
-                                                displayInfo:selectedproductList$.value[index].localDisplayInfo ,
-                                              );
+                                        name: "${selectedproductList$.value[index].name}",
+                                        id: selectedproductList$.value[index].id,
+                                        localName: "${selectedproductList$.value[index].name}",
+                                        price:"${selectedproductList$.value[index].price}",
+                                        curCode: "${selectedproductList$.value[index].curCode}",
+                                        preparePlace: "${selectedproductList$.value[index].preparePlace}",
+                                        productGroupId: selectedproductList$.value[index].productGroupId,
+                                        halfPortion : selectedproductList$.value[index].halfPortion,
+                                        includedInAi: selectedproductList$.value[index].includedInAi,
+                                        isPackage: selectedproductList$.value[index].isPackage,
+                                        displayInfo:selectedproductList$.value[index].displayInfo,
+                                        localDisplayInfo: selectedproductList$.value[index].localDisplayInfo,
+                                        allergic: selectedproductList$.value[index].allergic,
+                                        vegetarian: selectedproductList$.value[index].vegetarian,
+                                        alcohol: selectedproductList$.value[index].alcohol,
+                                        pork: selectedproductList$.value[index].pork,
+                                        gluten: selectedproductList$.value[index].gluten,
+                                        preperationTime: selectedproductList$.value[index].preperationTime,
+                                        allergens: selectedproductList$.value[index].allergens,
+                                        calories: selectedproductList$.value[index].calories,
+                                        cholesterol: selectedproductList$.value[index].cholesterol,
+                                        sodium: selectedproductList$.value[index].sodium,
+                                        carbonHydrates: selectedproductList$.value[index].carbonHydrates,
+                                        protein: selectedproductList$.value[index].protein,
+                                        fat: selectedproductList$.value[index].fat,
+                                        fiber: selectedproductList$.value[index].fiber,
+                                        imageUrl: "${selectedproductList$.value[index].imageUrl}",
+                                          
+                                          );
                                             },
                                           ));
                                         },
