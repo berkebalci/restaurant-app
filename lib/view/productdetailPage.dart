@@ -109,40 +109,47 @@ class _productdetailPageState extends State<productdetailPage> {
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(25),
                       topRight: Radius.circular(25))),
-              child: Column(
-                children: [
-                  SizedBox(height: context.getdynamicHeight(0.02),)
-                  ,
-                  Row(
-                   children: [
-                    SizedBox(height: context.getdynamicHeight(0.03),)
-                    ,Text(
-                      widget.name,
-                      style: TextStyle(fontFamily: "proxima", fontSize: 23),
-                      
-                    )],
-                  ),
-                  Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        SizedBox(width: context.getdynamicWidth(0.1),),
-                          Text(widget.localName,style: TextStyle(
-                            fontStyle: FontStyle.italic
-                          ),)]),
-                  Visibility(
-                      visible: !isPrepartiontimeNull,
-                      child:
-                          ListTile(trailing: Text("Hazirlanma süresi: ${widget.preperationTime} "))),
-                  
-                  Text(widget.displayInfo.toString())
-                ],
+              child: 
+              Padding(
+                padding: EdgeInsets.only(left: 15,),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(height: context.getdynamicHeight(0.02),),
+                    Row(
+                     children: [
+                      SizedBox(height: context.getdynamicHeight(0.03),)
+                      ,Text(
+                        widget.name,
+                        style: TextStyle(fontFamily: "proxima", fontSize: 23),
+                        
+                      )],
+                    ),
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          SizedBox(width: context.getdynamicWidth(0.1),),
+                            Text(widget.localName,style: TextStyle(
+                              fontStyle: FontStyle.italic
+                            ),)]),
+                    SizedBox(height: context.getdynamicHeight(0.02),),        
+                    Visibility(
+                        visible: !isPrepartiontimeNull,
+                        child:
+                            ListTile(trailing: Text("Hazirlanma süresi: ${widget.preperationTime} "))),
+                    
+                    Text(widget.displayInfo.toString(),style: TextStyle(
+                      fontSize: 20,fontFamily: "proxima",
+                    ),)
+                  ],
+                ),
               ),
             )),
         Visibility(
           visible: !isPrepartiontimeNull,
           child: Positioned(
             right: 173,
-            bottom: 340,
+            bottom: 323,
             child: SizedBox(
               height: context.getdynamicHeight(0.08),
               width: context.getdynamicWidth(0.08),
