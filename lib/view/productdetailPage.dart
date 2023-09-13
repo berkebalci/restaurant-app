@@ -67,9 +67,17 @@ class productdetailPage extends StatefulWidget {
 }
 
 class _productdetailPageState extends State<productdetailPage> {
+  late final bool isPrepartiontimeNull;
+  @override
+  void initState() {
+    isPrepartiontimeNull = widget.preperationTime == null ? true : false;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     print(widget.displayInfo);
+    print(isPrepartiontimeNull.toString() + widget.preperationTime.toString());
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -97,33 +105,51 @@ class _productdetailPageState extends State<productdetailPage> {
               width: context.getdynamicWidth(1),
               height: context.getdynamicHeight(0.6),
               decoration: BoxDecoration(
-                  color: Colors.grey,
+                  color: Colors.grey[850],
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(25),
                       topRight: Radius.circular(25))),
-              child: ListView(
-                padding: EdgeInsets.zero,
+              child: Column(
                 children: [
-                  ListTile(trailing: Row(
-                    children: [
-                      Lottie.asset("assets/animation/estimated_time.json")
-                      ,Text(
-                              "Hazırlanma Süresi: " +
-                                  widget.preperationTime.toString(),
-                              style: TextStyle(),
-                            ),
-                    ],
-                  ),)
+                  SizedBox(height: context.getdynamicHeight(0.02),)
                   ,
-                  ListTile(
-                    leading: Text(
+                  Row(
+                   children: [
+                    SizedBox(height: context.getdynamicHeight(0.03),)
+                    ,Text(
                       widget.name,
                       style: TextStyle(fontFamily: "proxima", fontSize: 23),
-                    ),
-                  )
+                      
+                    )],
+                  ),
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        SizedBox(width: context.getdynamicWidth(0.1),),
+                          Text(widget.localName,style: TextStyle(
+                            fontStyle: FontStyle.italic
+                          ),)]),
+                  Visibility(
+                      visible: !isPrepartiontimeNull,
+                      child:
+                          ListTile(trailing: Text("Hazirlanma süresi: ${widget.preperationTime} "))),
+                  
+                  Text(widget.displayInfo.toString())
                 ],
               ),
-            ))
+            )),
+        Visibility(
+          visible: !isPrepartiontimeNull,
+          child: Positioned(
+            right: 173,
+            bottom: 340,
+            child: SizedBox(
+              height: context.getdynamicHeight(0.08),
+              width: context.getdynamicWidth(0.08),
+              child: Lottie.asset("assets/animation/preparing_time.json"),
+            ),
+          ),
+        ),
       ]),
     );
   }
