@@ -140,42 +140,37 @@ class _productdetailPageState extends State<productdetailPage> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           SizedBox(width: context.getdynamicWidth(0.05),),
-                            Visibility(
-                              visible: !isnameAndLocalNameSame
-                              ,child: Text(widget.localName,style: TextStyle(
+                            Opacity(
+                              opacity: isnameAndLocalNameSame ? 0.0:1.0,
+                              child: Text(widget.localName,style: TextStyle(
                                 fontStyle: FontStyle.italic
                               ),),
                             ),
                             
                       Visibility(
                         visible: !isPrepartiontimeNull
-                        ,child: Expanded(child: ListTile(trailing: Text("Hazirlanma süresi: ${widget.preperationTime} "))))
+                        ,child: Expanded(child: ListTile(
+                           leading: SizedBox(
+                            height: context.getdynamicHeight(0.08),
+                            width: context.getdynamicWidth(0.08),
+                            child: Lottie.asset("assets/animation/preparing_time.json"),
+            )
+                          ,trailing: Text("Hazirlanma süresi: ${widget.preperationTime} "))))
                             
                             ]),
                     SizedBox(height: context.getdynamicHeight(0.02),),        
-                    
-                    
                     Text(widget.displayInfo.toString(),style: TextStyle(
                       fontSize: 20,fontFamily: "proxima",
-                    ),)
+                    ),),
+                    SizedBox(height: context.getdynamicHeight(0.1),),
+
 
 
                   ],
                 ),
               ),
             )),
-        Visibility(
-          visible: !isPrepartiontimeNull,
-          child: Positioned(
-            right: 173,
-            bottom: 323,
-            child: SizedBox(
-              height: context.getdynamicHeight(0.08),
-              width: context.getdynamicWidth(0.08),
-              child: Lottie.asset("assets/animation/preparing_time.json"),
-            ),
-          ),
-        ),
+        
       ]),
     );
   }
