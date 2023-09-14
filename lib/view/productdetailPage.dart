@@ -68,16 +68,26 @@ class productdetailPage extends StatefulWidget {
 
 class _productdetailPageState extends State<productdetailPage> {
   late final bool isPrepartiontimeNull;
+  late final bool isnameAndLocalNameSame;
   @override
   void initState() {
     isPrepartiontimeNull = widget.preperationTime == null ? true : false;
+    isnameAndLocalNameSame = checknameSameness(widget.name, widget.localName);
     super.initState();
+  }
+
+  bool checknameSameness(String name1, String name2){
+    String handledname1 = name1.replaceAll(" ","").replaceAll(",","").replaceAll(".","").toLowerCase();
+    String handledname2 = name2.replaceAll(" ","").replaceAll(",","").replaceAll(".","").toLowerCase();
+    
+    return handledname1 == handledname2;
   }
 
   @override
   Widget build(BuildContext context) {
     print(widget.displayInfo);
     print(isPrepartiontimeNull.toString() + widget.preperationTime.toString());
+    print(isnameAndLocalNameSame);
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -126,21 +136,30 @@ class _productdetailPageState extends State<productdetailPage> {
                       )],
                     ),
                     Row(
+                        mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          SizedBox(width: context.getdynamicWidth(0.1),),
-                            Text(widget.localName,style: TextStyle(
-                              fontStyle: FontStyle.italic
-                            ),)]),
+                          SizedBox(width: context.getdynamicWidth(0.05),),
+                            Visibility(
+                              visible: !isnameAndLocalNameSame
+                              ,child: Text(widget.localName,style: TextStyle(
+                                fontStyle: FontStyle.italic
+                              ),),
+                            ),
+                            
+                      Visibility(
+                        visible: !isPrepartiontimeNull
+                        ,child: Expanded(child: ListTile(trailing: Text("Hazirlanma süresi: ${widget.preperationTime} "))))
+                            
+                            ]),
                     SizedBox(height: context.getdynamicHeight(0.02),),        
-                    Visibility(
-                        visible: !isPrepartiontimeNull,
-                        child:
-                            ListTile(trailing: Text("Hazirlanma süresi: ${widget.preperationTime} "))),
+                    
                     
                     Text(widget.displayInfo.toString(),style: TextStyle(
                       fontSize: 20,fontFamily: "proxima",
                     ),)
+
+
                   ],
                 ),
               ),
