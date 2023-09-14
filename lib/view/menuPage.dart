@@ -105,7 +105,7 @@ class _MenuPageState extends State<MenuPage> with TickerProviderStateMixin {
                                               return productdetailPage(
                                         name: "${selectedproductList$.value[index].name}",
                                         id: selectedproductList$.value[index].id,
-                                        localName: "${selectedproductList$.value[index].name}",
+                                        localName: "${selectedproductList$.value[index].localName}",
                                         price:"${selectedproductList$.value[index].price}",
                                         curCode: "${selectedproductList$.value[index].curCode}",
                                         preparePlace: "${selectedproductList$.value[index].preparePlace}",
