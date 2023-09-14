@@ -33,6 +33,7 @@ class _MenuPageState extends State<MenuPage> with TickerProviderStateMixin {
                 mainDepartmantmodelList$.value[0].productgroupmodelList.length,
             child: Scaffold(
               appBar: AppBar(
+                backgroundColor: Colors.transparent,
                 bottom: TabBar(
                     onTap: (index) {
                       selectedproductList$.value = mainDepartmantmodelList$
@@ -62,6 +63,7 @@ class _MenuPageState extends State<MenuPage> with TickerProviderStateMixin {
               body: SingleChildScrollView(
                 child: Column(
                   children: [
+                    SizedBox(height: context.getdynamicHeight(0.02),),
                     StreamBuilder<List>(
                         stream: selectedproductList$.stream,
                         initialData: selectedproductList$.value =
@@ -101,13 +103,39 @@ class _MenuPageState extends State<MenuPage> with TickerProviderStateMixin {
                                               MaterialPageRoute(
                                             builder: (context) {
                                               return productdetailPage(
-                                                ImageURL:
-                                                    "${selectedproductList$.value[index].imageUrl}",
-                                              );
+                                        name: "${selectedproductList$.value[index].name}",
+                                        id: selectedproductList$.value[index].id,
+                                        localName: "${selectedproductList$.value[index].name}",
+                                        price:"${selectedproductList$.value[index].price}",
+                                        curCode: "${selectedproductList$.value[index].curCode}",
+                                        preparePlace: "${selectedproductList$.value[index].preparePlace}",
+                                        productGroupId: selectedproductList$.value[index].productGroupId,
+                                        halfPortion : selectedproductList$.value[index].halfPortion,
+                                        includedInAi: selectedproductList$.value[index].includedInAi,
+                                        isPackage: selectedproductList$.value[index].isPackage,
+                                        displayInfo:selectedproductList$.value[index].displayInfo,
+                                        localDisplayInfo: selectedproductList$.value[index].localDisplayInfo,
+                                        allergic: selectedproductList$.value[index].allergic,
+                                        vegetarian: selectedproductList$.value[index].vegetarian,
+                                        alcohol: selectedproductList$.value[index].alcohol,
+                                        pork: selectedproductList$.value[index].pork,
+                                        gluten: selectedproductList$.value[index].gluten,
+                                        preperationTime: selectedproductList$.value[index].preperationTime,
+                                        allergens: selectedproductList$.value[index].allergens,
+                                        calories: selectedproductList$.value[index].calories,
+                                        cholesterol: selectedproductList$.value[index].cholesterol,
+                                        sodium: selectedproductList$.value[index].sodium,
+                                        carbonHydrates: selectedproductList$.value[index].carbonHydrates,
+                                        protein: selectedproductList$.value[index].protein,
+                                        fat: selectedproductList$.value[index].fat,
+                                        fiber: selectedproductList$.value[index].fiber,
+                                        imageUrl: "${selectedproductList$.value[index].imageUrl}",
+                                          
+                                          );
                                             },
                                           ));
                                         },
-                                        child: Container(
+                                        child:  Container(
                                             decoration: BoxDecoration(
                                                 borderRadius:
                                                     BorderRadius.circular(30),
@@ -139,16 +167,9 @@ class _MenuPageState extends State<MenuPage> with TickerProviderStateMixin {
                                             style: TextStyle(
                                               color: Colors.white,
                                               fontFamily: "proxima",
-                                              /*shadows:<Shadow>[
-                                                        const Shadow(
-                                                          offset: Offset(2.0, 2.0),
-                                                          blurRadius: 3.0,
-                                                          color: Color.fromARGB(255, 0, 0, 0),
-                                                        ),
-                                                      ],*/
                                             ),
                                           ),
-                                        ), //TODO: Yapilacak.
+                                        ), 
                                       ),
                                     ],
                                   ),
@@ -156,7 +177,7 @@ class _MenuPageState extends State<MenuPage> with TickerProviderStateMixin {
                               },
                             );
                           } else {
-                            return CircularProgressIndicator();
+                            return const CircularProgressIndicator();
                           }
                         }),
                   ],
@@ -165,11 +186,11 @@ class _MenuPageState extends State<MenuPage> with TickerProviderStateMixin {
             ),
           );
         } else if (snapshot.hasError) {
-          return Center(
+          return const Center(
             child: Text("Something went wrong"),
           );
         } else {
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         }
       },
     );

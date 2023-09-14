@@ -15,7 +15,7 @@ class ProductGroupModel {
       required this.localName,
       required this.imageUrl,
       this.parentGroupId,
-      required this.productmodelList}); //TODO: Burasi nasıl yapilacak düşün!
+      required this.productmodelList}); 
 
   factory ProductGroupModel.fromJson(Map<String, dynamic> json) {
     return ProductGroupModel(
