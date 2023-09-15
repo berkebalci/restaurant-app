@@ -1,66 +1,19 @@
-import 'package:elektraweb_restaurant/extensions/context_extension.dart';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
-class productdetailPage extends StatefulWidget {
-  final int id;
-  final String name;
-  final String localName;
-  final String price;
-  final String curCode;
-  final String? preparePlace;
-  final int productGroupId;
-  final String imageUrl;
-  final bool? halfPortion;
-  final bool? includedInAi;
-  final bool? isPackage;
-  final String? displayInfo;
-  final String? localDisplayInfo;
-  final bool? allergic;
-  final bool? vegetarian;
-  final bool? alcohol;
-  final bool? pork;
-  final bool? gluten;
-  final int? preperationTime;
-  final String? allergens;
-  final double? calories;
-  final double? cholesterol;
-  final double? sodium;
-  final double? carbonHydrates;
-  final double? protein;
-  final double? fat;
-  final double? fiber;
+import 'package:elektraweb_restaurant/extensions/context_extension.dart';
 
-  productdetailPage(
-      {super.key,
-      required this.displayInfo,
-      required this.id,
-      required this.name,
-      required this.localName,
-      required this.price,
-      required this.curCode,
-      this.preparePlace,
-      required this.productGroupId,
-      required this.imageUrl,
-      this.halfPortion,
-      this.includedInAi,
-      this.isPackage,
-      this.localDisplayInfo,
-      this.allergic,
-      this.vegetarian,
-      this.alcohol,
-      this.pork,
-      this.gluten,
-      this.preperationTime,
-      this.allergens,
-      this.calories,
-      this.cholesterol,
-      this.sodium,
-      this.carbonHydrates,
-      this.protein,
-      this.fat,
-      this.fiber});
+import '../models/menu/productModel.dart';
+
+class productdetailPage extends StatefulWidget {
+  ProductModel productmodelobject;
+
+  productdetailPage({
+    Key? key,
+    required this.productmodelobject,
+  }) : super(key: key);
 
   @override
   State<productdetailPage> createState() => _productdetailPageState();
@@ -75,14 +28,14 @@ class _productdetailPageState extends State<productdetailPage> {
 
   @override
   void initState() {
-    isPrepartiontimeNull = widget.preperationTime == null ? true : false;
-    isnameAndLocalNameSame = checknameSameness(widget.name, widget.localName);
+    isPrepartiontimeNull = widget.productmodelobject.preperationTime == null ? true : false;
+    isnameAndLocalNameSame = checknameSameness(widget.productmodelobject.name, widget.productmodelobject.localName);
     Map<String, bool?> boolVariableMap = {
-      "vegetarian": widget.vegetarian,
-      "alcohol": widget.alcohol,
-      "allergic": widget.allergic,
-      "pork": widget.pork,
-      "gluten": widget.gluten,
+      "vegetarian": widget.productmodelobject.vegetarian,
+      "alcohol": widget.productmodelobject.alcohol,
+      "allergic": widget.productmodelobject.allergic,
+      "pork": widget.productmodelobject.pork,
+      "gluten": widget.productmodelobject.gluten,
     };
     handleVariables(boolVariableMap);
     super.initState();
@@ -115,10 +68,7 @@ class _productdetailPageState extends State<productdetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    print(widget.displayInfo);
-    print(isPrepartiontimeNull.toString() + widget.preperationTime.toString());
-    print(isnameAndLocalNameSame);
-
+    
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -138,7 +88,7 @@ class _productdetailPageState extends State<productdetailPage> {
           height: context.getdynamicHeight(0.45),
           decoration: BoxDecoration(
               image: DecorationImage(
-                  fit: BoxFit.cover, image: NetworkImage(widget.imageUrl))),
+                  fit: BoxFit.cover, image: NetworkImage(widget.productmodelobject.imageUrl))),
         ),
         Align(
             alignment: Alignment.bottomCenter,
@@ -165,9 +115,12 @@ class _productdetailPageState extends State<productdetailPage> {
                         SizedBox(
                           height: context.getdynamicHeight(0.03),
                         ),
-                        Text(
-                          widget.name,
-                          style: TextStyle(fontFamily: "proxima", fontSize: 23),
+                        Expanded(
+                          child: Text(
+                            widget.productmodelobject.name,
+                            style:
+                                TextStyle(fontFamily: "proxima", fontSize: 23),
+                          ),
                         )
                       ],
                     ),
@@ -180,9 +133,11 @@ class _productdetailPageState extends State<productdetailPage> {
                           ),
                           Opacity(
                             opacity: !isnameAndLocalNameSame ? 0.0 : 1.0,
-                            child: Text(
-                              widget.localName,
-                              style: TextStyle(fontStyle: FontStyle.italic),
+                            child: Expanded(
+                              child: Text(
+                                widget.productmodelobject.localName,
+                                style: TextStyle(fontStyle: FontStyle.italic),
+                              ),
                             ),
                           ),
                           Visibility(
@@ -195,14 +150,14 @@ class _productdetailPageState extends State<productdetailPage> {
                                       "assets/animation/preparing_time.json"),
                                 ),
                                 Text(
-                                    "Hazirlanma süresi: ${widget.preperationTime} ")
+                                    "Hazirlanma süresi: ${widget.productmodelobject.preperationTime} ")
                               ]))
                         ]),
                     SizedBox(
                       height: context.getdynamicHeight(0.02),
                     ),
                     Text(
-                      widget.displayInfo.toString(),
+                      widget.productmodelobject.displayInfo.toString(),
                       style: TextStyle(
                         fontSize: 20,
                         fontFamily: "proxima",
@@ -217,7 +172,10 @@ class _productdetailPageState extends State<productdetailPage> {
                           child: Column(
                               children: trueVariables.map((element) {
                             return ListTile(
-                              leading: Icon(Icons.check,color: Colors.green,),
+                              leading: Icon(
+                                Icons.check,
+                                color: Colors.green,
+                              ),
                               title: Text(element),
                             );
                           }).toList()),
@@ -225,11 +183,14 @@ class _productdetailPageState extends State<productdetailPage> {
                         Expanded(
                           child: Column(
                             children: falseVariables.map((element) {
-                            return ListTile(
-                              leading: Icon(Icons.clear,color: Colors.red,),
-                              title: Text(element),
-                            );
-                          }).toList() ,
+                              return ListTile(
+                                leading: Icon(
+                                  Icons.clear,
+                                  color: Colors.red,
+                                ),
+                                title: Text(element),
+                              );
+                            }).toList(),
                           ),
                         )
                       ],
