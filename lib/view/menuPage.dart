@@ -42,6 +42,7 @@ class _MenuPageState extends State<MenuPage> with TickerProviderStateMixin {
                           .productmodelList;
 
                       print(selectedproductList$.value[0].name);
+                      
                     },
                     isScrollable: true,
                     tabs: mainDepartmantmodelList$
