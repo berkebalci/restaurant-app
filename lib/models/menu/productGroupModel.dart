@@ -5,7 +5,7 @@ class ProductGroupModel {
   int id;
   String name;
   String localName;
-  String imageUrl;
+  String? imageUrl;
   int? parentGroupId;
   List<ProductModel> productmodelList;
 
@@ -22,7 +22,7 @@ class ProductGroupModel {
         id: json['ID'] as int,
         name: json['NAME'] as String,
         localName: json['LOCALNAME'] as String,
-        imageUrl: json['IMAGEURL'] as String,
+        imageUrl: json['PHOTOURL'],
         parentGroupId: json['PARENTGROUPID'] as int?,
         productmodelList: []);
   }

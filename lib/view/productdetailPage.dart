@@ -89,7 +89,7 @@ class _productdetailPageState extends State<productdetailPage> {
           )
         ],
       ),
-      body: Stack(alignment: AlignmentDirectional.topStart, children: [
+      body: Stack(children: [
         Container(
           height: context.getdynamicHeight(0.45),
           decoration: BoxDecoration(
@@ -119,9 +119,14 @@ class _productdetailPageState extends State<productdetailPage> {
                       SizedBox(
                         height: context.getdynamicHeight(0.03),
                       ),
-                      Text(
-                        widget.productmodelobject.name,
-                        style: TextStyle(fontFamily: "proxima", fontSize: 23),
+                      Expanded(
+                        child: Text(
+                          widget.productmodelobject.name,
+                          style: TextStyle(
+                              overflow: TextOverflow.ellipsis,
+                              fontFamily: "proxima",
+                              fontSize: 23),
+                        ),
                       )
                     ],
                   ),

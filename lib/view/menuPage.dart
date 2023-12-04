@@ -37,7 +37,7 @@ class _MenuPageState extends State<MenuPage> with TickerProviderStateMixin {
                 bottom: TabBar(
                     onTap: (index) {
                       selectedproductList$.value = mainDepartmantmodelList$
-                          .value[0]
+                          .value[0]  //TODO: Burasi geliştirilebilir
                           .productgroupmodelList[index]
                           .productmodelList;
 
