@@ -27,8 +27,8 @@ class _productdetailPageState extends State<productdetailPage> {
   final List falseVariables = [];
   final List trueVariables = [];
 
-  BehaviorSubject<bool> isPanelExpanded = BehaviorSubject<bool>.seeded(false);
-
+  BehaviorSubject<bool> isPanelExpanded$ = BehaviorSubject<bool>.seeded(false);
+  late BehaviorSubject<double> heighOfDetails$ = BehaviorSubject();
   @override
   void initState() {
     isPrepartiontimeNull =
@@ -42,6 +42,8 @@ class _productdetailPageState extends State<productdetailPage> {
       "pork": widget.productmodelobject.pork,
       "gluten": widget.productmodelobject.gluten,
     };
+    heighOfDetails$.value = context.getdynamicHeight(0.4);
+    
     handleVariables(boolVariableMap);
     super.initState();
   }
@@ -73,8 +75,7 @@ class _productdetailPageState extends State<productdetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    print(widget.productmodelobject.preperationTime);
-    print(widget.productmodelobject.displayInfo);
+   
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -90,15 +91,18 @@ class _productdetailPageState extends State<productdetailPage> {
         ],
       ),
       body: Stack(children: [
-        Container(
-          height: context.getdynamicHeight(0.45),
-          decoration: BoxDecoration(
-              image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: NetworkImage(widget.productmodelobject.imageUrl))),
+        Align(
+          alignment: Alignment.topCenter,
+          child: Container(
+            height: context.getdynamicHeight(0.45),
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: NetworkImage(widget.productmodelobject.imageUrl))),
+          ),
         ),
         Positioned(
-          top: 300,
+          top: context.getdynamicHeight(0.4),
           width: context.getdynamicWidth(1),
           child: Container(
             height: context.getdynamicHeight(0.6),
