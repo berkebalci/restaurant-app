@@ -23,10 +23,8 @@ class productdetailPage extends StatefulWidget {
 class _productdetailPageState extends State<productdetailPage> {
   late final bool isPrepartiontimeNull;
   late final bool isnameAndLocalNameSame;
-
-  final List falseVariables = [];
   final List trueVariables = [];
-
+  
   BehaviorSubject<bool> isPanelExpanded$ = BehaviorSubject<bool>.seeded(false);
   BehaviorSubject<double> heighOfDetails$ = BehaviorSubject();
   @override
@@ -65,9 +63,7 @@ class _productdetailPageState extends State<productdetailPage> {
     for (var key in boolVariableMap.keys) {
       if (boolVariableMap[key] == true) {
         trueVariables.add(key);
-      } else if (boolVariableMap[key] == false) {
-        falseVariables.add(key);
-      }
+      } 
     }
   }
 
@@ -195,48 +191,71 @@ class _productdetailPageState extends State<productdetailPage> {
                               }),
                         ),
                         ExpansionTile(
-                          
                           title: Text("Besin degerleri"),
                           children: [
-                            ListTile(
-                              leading: Text(
-                                "callories: ${widget.productmodelobject.calories}"
-                              ) ,),
-                            ListTile(
-                              leading: Text(
-                                "choloesterol: ${widget.productmodelobject.cholesterol}"
-                              )  
-                                              
-                            ),
-                            ListTile(
-                              leading: Text(
-                                "sodium: ${widget.productmodelobject.sodium}"
-                              )  
-                                              
-                            ),
-                            ListTile(
-                              leading: Text(
-                                "protein: ${widget.productmodelobject.protein}"
-                              )  
-                                              
-                            ),
-                            ListTile(
-                              leading: Text(
-                                "fat: ${widget.productmodelobject.fat}"
-                              )
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Text(
+                                "callories:   ${widget.productmodelobject.calories}"
+                                , style: TextStyle(
+                            fontSize: 20,
+                            fontFamily: "proxima",
+                          )
+                              ) ,
+                                Text(
+                                    "choloesterol:   ${widget.productmodelobject.cholesterol}",
+                                     style: TextStyle(
+                            fontSize: 20,
+                            fontFamily: "proxima",
+                          )
+                                  
+                                                  
                                 ),
-                            ListTile(
-                              leading: Text(
-                                "fiber: ${widget.productmodelobject.fiber}"
-                              )  
-                                              
+                                Text(
+                                    "sodium:   ${widget.productmodelobject.sodium}",
+                                     style: TextStyle(
+                            fontSize: 20,
+                            fontFamily: "proxima",
+                          )
+                                  )  
+                                                  
+                                ,
+                                 Text(
+                                    "protein:   ${widget.productmodelobject.protein}",
+                                     style: TextStyle(
+                            fontSize: 20,
+                            fontFamily: "proxima",
+                          )
+                                  )  
+                                                  
+                                ,
+                                Text(
+                                    "fat:   ${widget.productmodelobject.fat}"
+                    , style: TextStyle(
+                            fontSize: 20,
+                            fontFamily: "proxima",
+                          )
+                                  )
+                                    ,
+                                Text(
+                                    "fiber:   ${widget.productmodelobject.fiber}"
+                                  , style: TextStyle(
+                            fontSize: 20,
+                            fontFamily: "proxima",
+                          )
+                                  )  
+                                                  
+                                ,
+                              ],
                             ),
                           ],
                           
                           onExpansionChanged: (value) {
                             if (value) {
                               heighOfDetails$.value =
-                                  context.getdynamicHeight(0.09);
+                                  context.getdynamicHeight(0.35);
                             } else {
                               heighOfDetails$.value =
                                   context.getdynamicHeight(0.4);
