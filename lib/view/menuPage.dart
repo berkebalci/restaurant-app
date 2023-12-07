@@ -1,6 +1,6 @@
 import 'package:elektraweb_restaurant/Global/global.dart';
 import 'package:elektraweb_restaurant/extensions/context_extension.dart';
-import 'package:elektraweb_restaurant/models/menu/productModel.dart';
+import 'package:elektraweb_restaurant/models/model/productModel.dart';
 import 'package:elektraweb_restaurant/service/menu_service.dart';
 import 'package:elektraweb_restaurant/view/productdetailPage.dart';
 import 'package:flutter/material.dart';

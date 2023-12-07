@@ -1,4 +1,4 @@
-import 'package:elektraweb_restaurant/models/menu/productGroupModel.dart';
+import 'package:elektraweb_restaurant/models/model/productGroupModel.dart';
 
 class DepartmantModel {
   int id;

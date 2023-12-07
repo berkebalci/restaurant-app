@@ -6,7 +6,7 @@ import 'package:lottie/lottie.dart';
 import 'package:elektraweb_restaurant/extensions/context_extension.dart';
 import 'package:rxdart/rxdart.dart';
 
-import '../models/menu/productModel.dart';
+import '../models/model/productModel.dart';
 
 class productdetailPage extends StatefulWidget {
   ProductModel productmodelobject;
@@ -28,7 +28,7 @@ class _productdetailPageState extends State<productdetailPage> {
   final List trueVariables = [];
 
   BehaviorSubject<bool> isPanelExpanded$ = BehaviorSubject<bool>.seeded(false);
-  late BehaviorSubject<double> heighOfDetails$ = BehaviorSubject();
+  BehaviorSubject<double> heighOfDetails$ = BehaviorSubject();
   @override
   void initState() {
     isPrepartiontimeNull =
@@ -42,8 +42,6 @@ class _productdetailPageState extends State<productdetailPage> {
       "pork": widget.productmodelobject.pork,
       "gluten": widget.productmodelobject.gluten,
     };
-    heighOfDetails$.value = context.getdynamicHeight(0.4);
-    
     handleVariables(boolVariableMap);
     super.initState();
   }
@@ -75,7 +73,6 @@ class _productdetailPageState extends State<productdetailPage> {
 
   @override
   Widget build(BuildContext context) {
-   
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -101,101 +98,124 @@ class _productdetailPageState extends State<productdetailPage> {
                     image: NetworkImage(widget.productmodelobject.imageUrl))),
           ),
         ),
-        Positioned(
-          top: context.getdynamicHeight(0.4),
-          width: context.getdynamicWidth(1),
-          child: Container(
-            height: context.getdynamicHeight(0.6),
-            width: context.getdynamicWidth(1),
-            decoration: BoxDecoration(
-                color: Colors.grey[850],
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(25),
-                    topRight: Radius.circular(25))),
-            child: Padding(
-              padding: EdgeInsets.only(
-                  top: context.getdynamicHeight(0.02), left: 15, right: 10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      SizedBox(
-                        height: context.getdynamicHeight(0.03),
-                      ),
-                      Expanded(
-                        child: Text(
-                          widget.productmodelobject.name,
-                          style: TextStyle(
-                              overflow: TextOverflow.ellipsis,
-                              fontFamily: "proxima",
-                              fontSize: 23),
-                        ),
-                      )
-                    ],
-                  ),
-                  Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        StreamBuilder<double>(
+            initialData: heighOfDetails$.value = context.getdynamicHeight(0.4),
+            stream: heighOfDetails$.stream,
+            builder: (context, snapshot) {
+              return Positioned(
+                top: heighOfDetails$.value,
+                width: context.getdynamicWidth(1),
+                child: Container(
+                  height: context.getdynamicHeight(0.6),
+                  width: context.getdynamicWidth(1),
+                  decoration: BoxDecoration(
+                      color: Colors.grey[850],
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(25),
+                          topRight: Radius.circular(25))),
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                        top: context.getdynamicHeight(0.02),
+                        left: 15,
+                        right: 10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(
-                          width: context.getdynamicWidth(0.05),
-                        ),
-                        Opacity(
-                          opacity: !isnameAndLocalNameSame ? 0.0 : 1.0,
-                          child: Expanded(
-                            child: Text(
-                              widget.productmodelobject.localName,
-                              style: TextStyle(fontStyle: FontStyle.italic),
+                        Row(
+                          children: [
+                            SizedBox(
+                              height: context.getdynamicHeight(0.03),
                             ),
+                            Expanded(
+                              child: Text(
+                                widget.productmodelobject.name,
+                                style: TextStyle(
+                                    overflow: TextOverflow.ellipsis,
+                                    fontFamily: "proxima",
+                                    fontSize: 23),
+                              ),
+                            )
+                          ],
+                        ),
+                        Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              SizedBox(
+                                width: context.getdynamicWidth(0.05),
+                              ),
+                              Opacity(
+                                opacity: !isnameAndLocalNameSame ? 0.0 : 1.0,
+                                child: Expanded(
+                                  child: Text(
+                                    widget.productmodelobject.localName,
+                                    style:
+                                        TextStyle(fontStyle: FontStyle.italic),
+                                  ),
+                                ),
+                              ),
+                              Visibility(
+                                  visible: !isPrepartiontimeNull,
+                                  child: Row(children: [
+                                    SizedBox(
+                                      height: context.getdynamicHeight(0.08),
+                                      width: context.getdynamicWidth(0.07),
+                                      child: Lottie.asset(
+                                          "assets/animation/preparing_time.json"),
+                                    ),
+                                    Text(
+                                        "Hazirlanma süresi: ${widget.productmodelobject.preperationTime} ")
+                                  ]))
+                            ]),
+                        SizedBox(
+                          height: context.getdynamicHeight(0.02),
+                        ),
+                        Text(
+                          widget.productmodelobject.displayInfo.toString(),
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontFamily: "proxima",
                           ),
                         ),
-                        Visibility(
-                            visible: !isPrepartiontimeNull,
-                            child: Row(children: [
-                              SizedBox(
-                                height: context.getdynamicHeight(0.08),
-                                width: context.getdynamicWidth(0.07),
-                                child: Lottie.asset(
-                                    "assets/animation/preparing_time.json"),
-                              ),
-                              Text(
-                                  "Hazirlanma süresi: ${widget.productmodelobject.preperationTime} ")
-                            ]))
-                      ]),
-                  SizedBox(
-                    height: context.getdynamicHeight(0.02),
-                  ),
-                  Text(
-                    widget.productmodelobject.displayInfo.toString(),
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontFamily: "proxima",
+                        SizedBox(
+                          height: context.getdynamicHeight(0.02),
+                        ),
+                        Expanded(
+                          child: ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: trueVariables.length,
+                              itemBuilder: (context, index) {
+                                return ListTile(
+                                  leading: Icon(
+                                    Icons.check,
+                                    color: Colors.green,
+                                  ),
+                                  title: Text(trueVariables[index]),
+                                );
+                              }),
+                        ),
+                        ExpansionTile(
+                          title: Text("Besin degerleri"),
+                          children: [
+                            ListTile()
+                          ],
+                          
+                          onExpansionChanged: (value) {
+                            if (value) {
+                              heighOfDetails$.value =
+                                  context.getdynamicHeight(0.09);
+                            } else {
+                              heighOfDetails$.value =
+                                  context.getdynamicHeight(0.4);
+                            }
+                          },
+                        )
+                      ],
                     ),
                   ),
-                  SizedBox(
-                    height: context.getdynamicHeight(0.02),
-                  ),
-                  Expanded(
-                    child: ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: trueVariables.length,
-                        itemBuilder: (context, index) {
-                          return ListTile(
-                            leading: Icon(
-                              Icons.check,
-                              color: Colors.green,
-                            ),
-                            title: Text(trueVariables[index]),
-                          );
-                        }),
-                  ),
-                  ExpansionTile(title: Text("Besin degerleri"))
-                ],
-              ),
-            ),
-          ),
-        ),
+                ),
+              );
+            }),
       ]),
     );
   }

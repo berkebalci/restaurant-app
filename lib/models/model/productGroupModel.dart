@@ -1,5 +1,5 @@
-import 'package:elektraweb_restaurant/models/menu/DepartmantModel.dart';
-import 'package:elektraweb_restaurant/models/menu/productModel.dart';
+import 'package:elektraweb_restaurant/models/model/DepartmantModel.dart';
+import 'package:elektraweb_restaurant/models/model/productModel.dart';
 
 class ProductGroupModel {
   int id;
