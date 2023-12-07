@@ -195,9 +195,42 @@ class _productdetailPageState extends State<productdetailPage> {
                               }),
                         ),
                         ExpansionTile(
+                          
                           title: Text("Besin degerleri"),
                           children: [
-                            ListTile()
+                            ListTile(
+                              leading: Text(
+                                "callories: ${widget.productmodelobject.calories}"
+                              ) ,),
+                            ListTile(
+                              leading: Text(
+                                "choloesterol: ${widget.productmodelobject.cholesterol}"
+                              )  
+                                              
+                            ),
+                            ListTile(
+                              leading: Text(
+                                "sodium: ${widget.productmodelobject.sodium}"
+                              )  
+                                              
+                            ),
+                            ListTile(
+                              leading: Text(
+                                "protein: ${widget.productmodelobject.protein}"
+                              )  
+                                              
+                            ),
+                            ListTile(
+                              leading: Text(
+                                "fat: ${widget.productmodelobject.fat}"
+                              )
+                                ),
+                            ListTile(
+                              leading: Text(
+                                "fiber: ${widget.productmodelobject.fiber}"
+                              )  
+                                              
+                            ),
                           ],
                           
                           onExpansionChanged: (value) {

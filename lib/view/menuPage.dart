@@ -55,7 +55,7 @@ class _MenuPageState extends State<MenuPage> with TickerProviderStateMixin {
                       );
                     }).toList()),
                 title: const Text(
-                  "Welcome",
+                  "Menu",
                   style: TextStyle(fontFamily: "proxima"),
                 ),
                 centerTitle: true,
