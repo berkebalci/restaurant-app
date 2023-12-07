@@ -1,66 +1,20 @@
-import 'package:elektraweb_restaurant/extensions/context_extension.dart';
+//TODO: Ürün detayları api'den geliyor ama nedense stack yapısının altındaki positioned'da gözükmüyor. bunu araştır ve çöz!
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
-class productdetailPage extends StatefulWidget {
-  final int id;
-  final String name;
-  final String localName;
-  final String price;
-  final String curCode;
-  final String? preparePlace;
-  final int productGroupId;
-  final String imageUrl;
-  final bool? halfPortion;
-  final bool? includedInAi;
-  final bool? isPackage;
-  final String? displayInfo;
-  final String? localDisplayInfo;
-  final bool? allergic;
-  final bool? vegetarian;
-  final bool? alcohol;
-  final bool? pork;
-  final bool? gluten;
-  final int? preperationTime;
-  final String? allergens;
-  final double? calories;
-  final double? cholesterol;
-  final double? sodium;
-  final double? carbonHydrates;
-  final double? protein;
-  final double? fat;
-  final double? fiber;
+import 'package:elektraweb_restaurant/extensions/context_extension.dart';
+import 'package:rxdart/rxdart.dart';
 
-  productdetailPage(
-      {super.key,
-      required this.displayInfo,
-      required this.id,
-      required this.name,
-      required this.localName,
-      required this.price,
-      required this.curCode,
-      this.preparePlace,
-      required this.productGroupId,
-      required this.imageUrl,
-      this.halfPortion,
-      this.includedInAi,
-      this.isPackage,
-      this.localDisplayInfo,
-      this.allergic,
-      this.vegetarian,
-      this.alcohol,
-      this.pork,
-      this.gluten,
-      this.preperationTime,
-      this.allergens,
-      this.calories,
-      this.cholesterol,
-      this.sodium,
-      this.carbonHydrates,
-      this.protein,
-      this.fat,
-      this.fiber});
+import '../models/model/productModel.dart';
+
+class productdetailPage extends StatefulWidget {
+  ProductModel productmodelobject;
+
+  productdetailPage({
+    Key? key,
+    required this.productmodelobject,
+  }) : super(key: key);
 
   @override
   State<productdetailPage> createState() => _productdetailPageState();
@@ -69,20 +23,22 @@ class productdetailPage extends StatefulWidget {
 class _productdetailPageState extends State<productdetailPage> {
   late final bool isPrepartiontimeNull;
   late final bool isnameAndLocalNameSame;
-
-  final List falseVariables = [];
   final List trueVariables = [];
-
+  
+  BehaviorSubject<bool> isPanelExpanded$ = BehaviorSubject<bool>.seeded(false);
+  BehaviorSubject<double> heighOfDetails$ = BehaviorSubject();
   @override
   void initState() {
-    isPrepartiontimeNull = widget.preperationTime == null ? true : false;
-    isnameAndLocalNameSame = checknameSameness(widget.name, widget.localName);
+    isPrepartiontimeNull =
+        widget.productmodelobject.preperationTime == null ? true : false;
+    isnameAndLocalNameSame = checknameSameness(
+        widget.productmodelobject.name, widget.productmodelobject.localName);
     Map<String, bool?> boolVariableMap = {
-      "vegetarian": widget.vegetarian,
-      "alcohol": widget.alcohol,
-      "allergic": widget.allergic,
-      "pork": widget.pork,
-      "gluten": widget.gluten,
+      "vegetarian": widget.productmodelobject.vegetarian,
+      "alcohol": widget.productmodelobject.alcohol,
+      "allergic": widget.productmodelobject.allergic,
+      "pork": widget.productmodelobject.pork,
+      "gluten": widget.productmodelobject.gluten,
     };
     handleVariables(boolVariableMap);
     super.initState();
@@ -107,18 +63,12 @@ class _productdetailPageState extends State<productdetailPage> {
     for (var key in boolVariableMap.keys) {
       if (boolVariableMap[key] == true) {
         trueVariables.add(key);
-      } else if (boolVariableMap[key] == false) {
-        falseVariables.add(key);
-      }
+      } 
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    print(widget.displayInfo);
-    print(isPrepartiontimeNull.toString() + widget.preperationTime.toString());
-    print(isnameAndLocalNameSame);
-
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -134,110 +84,190 @@ class _productdetailPageState extends State<productdetailPage> {
         ],
       ),
       body: Stack(children: [
-        Container(
-          height: context.getdynamicHeight(0.45),
-          decoration: BoxDecoration(
-              image: DecorationImage(
-                  fit: BoxFit.cover, image: NetworkImage(widget.imageUrl))),
-        ),
         Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              width: context.getdynamicWidth(1),
-              height: context.getdynamicHeight(0.6),
-              decoration: BoxDecoration(
-                  color: Colors.grey[850],
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(25),
-                      topRight: Radius.circular(25))),
-              child: Padding(
-                padding: EdgeInsets.only(
-                  left: 15,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      height: context.getdynamicHeight(0.02),
-                    ),
-                    Row(
+          alignment: Alignment.topCenter,
+          child: Container(
+            height: context.getdynamicHeight(0.45),
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: NetworkImage(widget.productmodelobject.imageUrl))),
+          ),
+        ),
+        StreamBuilder<double>(
+            initialData: heighOfDetails$.value = context.getdynamicHeight(0.4),
+            stream: heighOfDetails$.stream,
+            builder: (context, snapshot) {
+              return Positioned(
+                top: heighOfDetails$.value,
+                width: context.getdynamicWidth(1),
+                child: Container(
+                  height: context.getdynamicHeight(0.6),
+                  width: context.getdynamicWidth(1),
+                  decoration: BoxDecoration(
+                      color: Colors.grey[850],
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(25),
+                          topRight: Radius.circular(25))),
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                        top: context.getdynamicHeight(0.02),
+                        left: 15,
+                        right: 10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        Row(
+                          children: [
+                            SizedBox(
+                              height: context.getdynamicHeight(0.03),
+                            ),
+                            Expanded(
+                              child: Text(
+                                widget.productmodelobject.name,
+                                style: TextStyle(
+                                    overflow: TextOverflow.ellipsis,
+                                    fontFamily: "proxima",
+                                    fontSize: 23),
+                              ),
+                            )
+                          ],
+                        ),
+                        Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              SizedBox(
+                                width: context.getdynamicWidth(0.05),
+                              ),
+                              Opacity(
+                                opacity: !isnameAndLocalNameSame ? 0.0 : 1.0,
+                                child: Expanded(
+                                  child: Text(
+                                    widget.productmodelobject.localName,
+                                    style:
+                                        TextStyle(fontStyle: FontStyle.italic),
+                                  ),
+                                ),
+                              ),
+                              Visibility(
+                                  visible: !isPrepartiontimeNull,
+                                  child: Row(children: [
+                                    SizedBox(
+                                      height: context.getdynamicHeight(0.08),
+                                      width: context.getdynamicWidth(0.07),
+                                      child: Lottie.asset(
+                                          "assets/animation/preparing_time.json"),
+                                    ),
+                                    Text(
+                                        "Hazirlanma süresi: ${widget.productmodelobject.preperationTime} ")
+                                  ]))
+                            ]),
                         SizedBox(
-                          height: context.getdynamicHeight(0.03),
+                          height: context.getdynamicHeight(0.02),
                         ),
                         Text(
-                          widget.name,
-                          style: TextStyle(fontFamily: "proxima", fontSize: 23),
-                        )
-                      ],
-                    ),
-                    Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          SizedBox(
-                            width: context.getdynamicWidth(0.05),
+                          widget.productmodelobject.displayInfo.toString(),
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontFamily: "proxima",
                           ),
-                          Opacity(
-                            opacity: !isnameAndLocalNameSame ? 0.0 : 1.0,
-                            child: Text(
-                              widget.localName,
-                              style: TextStyle(fontStyle: FontStyle.italic),
-                            ),
-                          ),
-                          Visibility(
-                              visible: !isPrepartiontimeNull,
-                              child: Row(children: [
-                                SizedBox(
-                                  height: context.getdynamicHeight(0.08),
-                                  width: context.getdynamicWidth(0.07),
-                                  child: Lottie.asset(
-                                      "assets/animation/preparing_time.json"),
-                                ),
-                                Text(
-                                    "Hazirlanma süresi: ${widget.preperationTime} ")
-                              ]))
-                        ]),
-                    SizedBox(
-                      height: context.getdynamicHeight(0.02),
-                    ),
-                    Text(
-                      widget.displayInfo.toString(),
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontFamily: "proxima",
-                      ),
-                    ),
-                    SizedBox(
-                      height: context.getdynamicHeight(0.02),
-                    ),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Column(
-                              children: trueVariables.map((element) {
-                            return ListTile(
-                              leading: Icon(Icons.check,color: Colors.green,),
-                              title: Text(element),
-                            );
-                          }).toList()),
+                        ),
+                        SizedBox(
+                          height: context.getdynamicHeight(0.02),
                         ),
                         Expanded(
-                          child: Column(
-                            children: falseVariables.map((element) {
-                            return ListTile(
-                              leading: Icon(Icons.clear,color: Colors.red,),
-                              title: Text(element),
-                            );
-                          }).toList() ,
-                          ),
+                          child: ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: trueVariables.length,
+                              itemBuilder: (context, index) {
+                                return ListTile(
+                                  leading: Icon(
+                                    Icons.check,
+                                    color: Colors.green,
+                                  ),
+                                  title: Text(trueVariables[index]),
+                                );
+                              }),
+                        ),
+                        ExpansionTile(
+                          title: Text("Besin degerleri"),
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Text(
+                                "callories:   ${widget.productmodelobject.calories}"
+                                , style: TextStyle(
+                            fontSize: 20,
+                            fontFamily: "proxima",
+                          )
+                              ) ,
+                                Text(
+                                    "choloesterol:   ${widget.productmodelobject.cholesterol}",
+                                     style: TextStyle(
+                            fontSize: 20,
+                            fontFamily: "proxima",
+                          )
+                                  
+                                                  
+                                ),
+                                Text(
+                                    "sodium:   ${widget.productmodelobject.sodium}",
+                                     style: TextStyle(
+                            fontSize: 20,
+                            fontFamily: "proxima",
+                          )
+                                  )  
+                                                  
+                                ,
+                                 Text(
+                                    "protein:   ${widget.productmodelobject.protein}",
+                                     style: TextStyle(
+                            fontSize: 20,
+                            fontFamily: "proxima",
+                          )
+                                  )  
+                                                  
+                                ,
+                                Text(
+                                    "fat:   ${widget.productmodelobject.fat}"
+                    , style: TextStyle(
+                            fontSize: 20,
+                            fontFamily: "proxima",
+                          )
+                                  )
+                                    ,
+                                Text(
+                                    "fiber:   ${widget.productmodelobject.fiber}"
+                                  , style: TextStyle(
+                            fontSize: 20,
+                            fontFamily: "proxima",
+                          )
+                                  )  
+                                                  
+                                ,
+                              ],
+                            ),
+                          ],
+                          
+                          onExpansionChanged: (value) {
+                            if (value) {
+                              heighOfDetails$.value =
+                                  context.getdynamicHeight(0.35);
+                            } else {
+                              heighOfDetails$.value =
+                                  context.getdynamicHeight(0.4);
+                            }
+                          },
                         )
                       ],
-                    )
-                  ],
+                    ),
+                  ),
                 ),
-              ),
-            )),
+              );
+            }),
       ]),
     );
   }

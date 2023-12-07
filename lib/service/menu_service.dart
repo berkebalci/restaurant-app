@@ -1,9 +1,9 @@
 import 'dart:convert';
 
 import 'package:elektraweb_restaurant/Global/global.dart';
-import 'package:elektraweb_restaurant/models/menu/DepartmantModel.dart';
-import 'package:elektraweb_restaurant/models/menu/productGroupModel.dart';
-import 'package:elektraweb_restaurant/models/menu/productModel.dart';
+import 'package:elektraweb_restaurant/models/model/DepartmantModel.dart';
+import 'package:elektraweb_restaurant/models/model/productGroupModel.dart';
+import 'package:elektraweb_restaurant/models/model/productModel.dart';
 import 'package:http/http.dart' as http;
 import 'package:rxdart/subjects.dart';
 

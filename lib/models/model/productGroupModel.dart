@@ -1,11 +1,11 @@
-import 'package:elektraweb_restaurant/models/menu/DepartmantModel.dart';
-import 'package:elektraweb_restaurant/models/menu/productModel.dart';
+import 'package:elektraweb_restaurant/models/model/DepartmantModel.dart';
+import 'package:elektraweb_restaurant/models/model/productModel.dart';
 
 class ProductGroupModel {
   int id;
   String name;
   String localName;
-  String imageUrl;
+  String? imageUrl;
   int? parentGroupId;
   List<ProductModel> productmodelList;
 
@@ -22,7 +22,7 @@ class ProductGroupModel {
         id: json['ID'] as int,
         name: json['NAME'] as String,
         localName: json['LOCALNAME'] as String,
-        imageUrl: json['IMAGEURL'] as String,
+        imageUrl: json['PHOTOURL'],
         parentGroupId: json['PARENTGROUPID'] as int?,
         productmodelList: []);
   }
