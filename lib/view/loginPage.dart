@@ -51,7 +51,7 @@ class _LoginPageState extends State<LoginPage> {
         children: [
           SizedBox(
             child: Lottie.asset(loginAnimation, fit: BoxFit.fill),
-            height: context.getdynamicHeight(0.5),
+            height: context.getdynamicHeight(0.3),
             width: context.getdynamicWidth(0.7),
           ),
           SizedBox(
