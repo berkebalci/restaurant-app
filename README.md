@@ -2,6 +2,7 @@ This is a restaurant menu app that I developed during my software summer interns
 
 - Framework: Flutter & Dart
 - State Management: RxDart
+- Animation: Lottie
 - HTTP requests: http package
 - Handled possible errors during runtime
 - Aimed to create an adaptive app
