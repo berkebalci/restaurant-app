@@ -13,13 +13,11 @@ class menuService {
       String? userpassword,
       int? tenant,
       String? authCode}) async {
-    final url = "https://4001.hoteladvisor.net/";
-    //20854(Hotelid) demo(usercode) 123(userpassword) için istek atıyoruz.
+    //endpoint given
+    
     try {
       var object = {
-        "Action": "Execute",
-        "Object": "SP_HOTELGUEST_POSDATA",
-        "Parameters": {"HOTELID": 23155}
+       //parameters given
       };
 
       final response =
