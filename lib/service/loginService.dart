@@ -9,13 +9,10 @@ import '../models/login/loginResponse.dart';
 class LoginService {
   static Future<Response> requestLogin(
       String usercode, String userpassword, String tenant,{String? authCode}) async {
-    //endpoint given
+    //endpoint private
     try {
       var object = {
-                "Action": "Login",
-                "Usercode": usercode,
-                "Password": userpassword,
-                "Tenant": tenant
+                //parameters private
               };
               if(authCode != null && authCode != ''){
                 object["AuthCode"] = authCode;
