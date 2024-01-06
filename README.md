@@ -1,16 +1,10 @@
-# elektraweb_restaurant
+This is a restaurant menu app that I developed during my software summer internship. Here is some information about the app:
 
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Framework: Flutter & Dart
+- State Management: RxDart
+- HTTP requests: http package
+- Handled possible errors during runtime
+- Aimed to create an adaptive app
+- Utilized model classes to process data from the API
+- Emphasized readable code and a well-organized folder structure
+- Implemented adaptive height and weight to ensure compatibility with all screen sizes
