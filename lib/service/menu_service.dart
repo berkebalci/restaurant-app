@@ -13,11 +13,11 @@ class menuService {
       String? userpassword,
       int? tenant,
       String? authCode}) async {
-    //endpoint given
+    //endpoint private
     
     try {
       var object = {
-       //parameters given
+       //parameters private
       };
 
       final response =
