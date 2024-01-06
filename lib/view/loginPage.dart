@@ -18,7 +18,7 @@ class _LoginPageState extends State<LoginPage> {
   late TextEditingController userCodeController;
   late TextEditingController userpasswController;
   late TextEditingController userTenantController;
-  String loginAnimation = "assets/animation/animation_llavab2y.json";
+  String loginAnimation = "assets/animation/food_animation2.json";
   @override
   void initState() {
     super.initState();
@@ -50,8 +50,11 @@ class _LoginPageState extends State<LoginPage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           SizedBox(
+            height: context.getdynamicHeight(0.02),
+          )
+          ,SizedBox(
             child: Lottie.asset(loginAnimation, fit: BoxFit.fill),
-            height: context.getdynamicHeight(0.3),
+            height: context.getdynamicHeight(0.25),
             width: context.getdynamicWidth(0.7),
           ),
           SizedBox(
