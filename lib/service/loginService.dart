@@ -9,7 +9,7 @@ import '../models/login/loginResponse.dart';
 class LoginService {
   static Future<Response> requestLogin(
       String usercode, String userpassword, String tenant,{String? authCode}) async {
-    final url = "https://4001.hoteladvisor.net/Login";
+    //endpoint given
     try {
       var object = {
                 "Action": "Login",
