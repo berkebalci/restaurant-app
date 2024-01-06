@@ -18,7 +18,7 @@ class _LoginPageState extends State<LoginPage> {
   late TextEditingController userCodeController;
   late TextEditingController userpasswController;
   late TextEditingController userTenantController;
-  String loginAnimation = "assets/animation/login_animation.json";
+  String loginAnimation = "assets/animation/animation_llavab2y.json";
   @override
   void initState() {
     super.initState();
